@@ -19,10 +19,10 @@ public class Program {
 		while (true) {
 			try {
 				UI.clearScreen();
-				UI.printBoard(match.getPieces());
+				UI.printMatch(match);
 				System.out.println("\nSource: ");
 				ChessPosition source = UI.readChessPosition(sc);
-				
+
 				boolean[][] possibleMoves = match.possibleMoves(source);
 				UI.clearScreen();
 				UI.printBoard(match.getPieces(), possibleMoves);
@@ -31,16 +31,14 @@ public class Program {
 				ChessPosition target = UI.readChessPosition(sc);
 
 				ChessPiece capturedPiece = match.performChessMove(source, target);
-			}
-			catch (ChessException e) {
+			} catch (ChessException e) {
+				System.out.println(e.getMessage());
+				sc.nextLine();
+			} catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();
 			}
-			catch (InputMismatchException e) {
-				System.out.println(e.getMessage());
-				sc.nextLine();
-			}
-			
+
 		}
 
 	}
